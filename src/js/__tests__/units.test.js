@@ -116,25 +116,20 @@ test('Zombie', () => {
 });
 
 test('lengthOfName', () => {
-  function result() {
-    new Bowerman('E', 'bowerman');
-  }
-  const expectation = new Error('Некорректная длина имени');
-  expect(result).toThrowError(expectation);
+  expect(() => new Bowerman('E', 'bowerman')).toThrowError(
+    'Некорректная длина имени',
+  );
 });
 
 test('typeOfUnit', () => {
-  function result() {
-    new Bowerman('Edgar', 'archer');
-  }
-  const expectation = new Error('Некорректный тип юнита');
-  expect(result).toThrowError(expectation);
+  expect(() => new Bowerman('Edgar', 'archer')).toThrowError(
+    'Некорректный тип юнита',
+  );
 });
 
 test('levelUp', () => {
   const bowerman = new Bowerman('Edgar', 'bowerman');
   bowerman.levelUp();
-  const result = bowerman;
   const expectation = {
     name: 'Edgar',
     type: 'bowerman',
@@ -143,33 +138,29 @@ test('levelUp', () => {
     attack: 25 * 1.2,
     defence: 25 * 1.2,
   };
-  expect(result).toEqual(expectation);
+  expect(bowerman).toEqual(expectation);
 });
 
 test('notLevelUp', () => {
   const bowerman = new Bowerman('Edgar', 'bowerman');
   bowerman.health = 0;
 
-  function result() {
-    bowerman.levelUp();
-  }
-  const expectation = new Error('нельзя повысить левел умершего');
-  expect(result).toThrowError(expectation);
+  expect(() => bowerman.levelUp()).toThrowError(
+    'нельзя повысить левел умершего',
+  );
 });
 
 test('damage', () => {
   const bowerman = new Bowerman('Edgar', 'bowerman');
   bowerman.damage(30);
-  const result = bowerman.health;
 
-  expect(result).toBe(77.5);
+  expect(bowerman.health).toBe(77.5);
 });
 
 test('notDamage', () => {
   const bowerman = new Bowerman('Edgar', 'bowerman');
   bowerman.health = -1;
   bowerman.damage(30);
-  const result = bowerman.health;
 
-  expect(result).toBe(-1);
+  expect(bowerman.health).toBe(-1);
 });
